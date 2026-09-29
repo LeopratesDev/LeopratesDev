@@ -21,7 +21,7 @@ Formado em Análise e Desenvolvimento de Sistemas (UNIP, 2023). Busco uma vaga d
 
 - API REST em C# / .NET 10 com arquitetura em camadas, SQL Server, autenticação JWT e papéis Admin e Colaborador.
 - Front em React + TypeScript com formulários validados por Zod e rotas protegidas por papel.
-- 146 testes automatizados e CI com 3 jobs a cada pull request.
+- 172 testes automatizados e CI com 3 jobs a cada pull request.
 - Deploy contínuo no Azure e no GitHub Pages, sem segredos no repositório (OIDC e identidade gerenciada).
 
 ### Contato
