@@ -1,36 +1,52 @@
 ## Olá, eu sou o Leonardo Prates
 
-**Desenvolvedor Full Stack Júnior** | C# · .NET · Node.js · NestJS · React · TypeScript · SQL
+**Desenvolvedor Back-end Júnior** | C# · .NET · Node.js · React · TypeScript · PostgreSQL
 
-Formado em Análise e Desenvolvimento de Sistemas (UNIP, 2023). Antes de programar, trabalhei com atendimento (SAC) e suporte técnico. Busco uma vaga de desenvolvedor júnior full stack ou back-end (.NET ou Node.js) em São Paulo.
+Formado em Análise e Desenvolvimento de Sistemas (UNIP, 2023). Antes de programar, trabalhei com atendimento (SAC) e suporte técnico. Busco uma vaga de desenvolvedor júnior back-end ou full stack em São Paulo.
 
 ### Stack
 
 | Área | Tecnologias |
 |---|---|
-| Back-end | C#, ASP.NET Core, Entity Framework Core, Node.js, NestJS, APIs REST, JWT |
-| Front-end | React, TypeScript, React Router, TanStack Query, Tailwind CSS |
-| Banco de dados | SQL Server, PostgreSQL, Prisma, modelagem relacional, migrations |
-| Filas e IA | BullMQ + Redis (workers, retry, jobs agendados), integração com LLM (Claude API) |
-| Testes | xUnit, FluentAssertions, Jest, Testcontainers, Vitest, Testing Library |
-| DevOps | Git, GitHub Actions, Docker, Docker Compose, Azure App Service, Azure SQL |
+| Back-end | C#, ASP.NET Core, Entity Framework Core, Clean Architecture, CQRS (MediatR) |
+| Back-end (Node) | Node.js, NestJS, TypeScript strict, BullMQ + Redis, Prisma |
+| Banco de dados | PostgreSQL, SQL Server, EF Core migrations |
+| Arquitetura | Clean Architecture, CQRS, multi-tenancy com Global Query Filters |
+| Testes | xUnit, NSubstitute, FluentAssertions, Testcontainers, Jest, Supertest |
+| Front-end | React, Next.js 15, TypeScript, TanStack Query, Tailwind CSS, Recharts |
+| DevOps | GitHub Actions (CI/CD), Docker, Railway, Vercel, Azure |
 
 ### Projetos em destaque
 
-**[RH Manager](https://github.com/LeopratesDev/rh-manager)**: sistema de gestão de RH com funcionários, departamentos e férias com fluxo de aprovação.
-[Demo online](https://leopratesdev.github.io/rh-manager/) · [Documentação da API](https://rh-manager-api-nmsbk.azurewebsites.net/scalar/v1)
+**[service-orders-saas](https://github.com/LeopratesDev/service-orders-saas)** · [Demo](https://service-orders-saas.vercel.app) · [API / Swagger](https://service-orders-api-production.up.railway.app/swagger)
 
-- API REST em C# / .NET 10 com arquitetura em camadas, SQL Server, autenticação JWT e papéis Admin e Colaborador.
-- Front em React + TypeScript com formulários validados por Zod e rotas protegidas por papel.
-- 172 testes automatizados e CI com 3 jobs a cada pull request.
-- Deploy contínuo no Azure e no GitHub Pages, sem segredos no repositório (OIDC e identidade gerenciada).
+Plataforma multi-tenant de gestão de ordens de serviço com integração de pagamentos Pix.
 
-**[HelpDesk API](https://github.com/LeopratesDev/helpdesk-api)**: API de chamados com triagem por IA. Eu atendia chamados; agora construí o sistema que os organiza.
+- **Clean Architecture** com 4 camadas (Domain / Application / Infrastructure / API) e dependência unidirecional
+- **CQRS via MediatR** — controllers não injetam repositórios, toda lógica passa por commands e queries
+- **Multi-tenancy** com EF Core Global Query Filters — isolamento por `TenantId` provado por teste automatizado
+- **Máquina de estados** explícita no domínio: Draft → Pending → Paid / Cancelled (DomainException em transições inválidas)
+- **Idempotência em pagamentos** com `IdempotencyKey` e índice único filtrado no banco
+- **Resiliência** com Polly: retry exponencial (3×) + circuit breaker (5 falhas / 30 s) no gateway Mercado Pago
+- **Rate limiting** built-in .NET 7: sliding window 60 req/min geral, 10 req/min em `/auth`
+- **35 testes** — 29 unitários (xUnit + NSubstitute) + 6 de integração (Testcontainers, PostgreSQL real)
+- **CI/CD** via GitHub Actions: unit tests → integration tests → Railway deploy automático
 
-- API REST em Node.js / NestJS com TypeScript strict, PostgreSQL + Prisma e 26 endpoints documentados no Swagger.
-- Triagem assíncrona: o chamado é criado em ~10 ms e um worker (BullMQ + Redis) chama o Claude com timeout, retry com backoff, validação Zod e processamento idempotente; modo fake para rodar sem chave.
-- SLA por prioridade com job agendado, máquina de status auditada e métricas de acerto da IA.
-- 157 testes (Jest + Testcontainers com PostgreSQL e Redis reais), 97% de cobertura nas regras de negócio e `docker compose up` com API, worker, banco e Redis.
+**[RH Manager](https://github.com/LeopratesDev/rh-manager)** · [Demo](https://leopratesdev.github.io/rh-manager/) · [API](https://rh-manager-api-nmsbk.azurewebsites.net/scalar/v1)
+
+Sistema de gestão de RH com funcionários, departamentos e fluxo de aprovação de férias.
+
+- API REST em C# / .NET 10 com autenticação JWT e papéis Admin/Colaborador
+- 172 testes e CI com 3 jobs; deploy no Azure com OIDC (sem segredos no repositório)
+
+**[HelpDesk API](https://github.com/LeopratesDev/helpdesk-api)**
+
+API de chamados com triagem por IA — construída a partir da experiência com atendimento ao cliente.
+
+- API REST em Node.js / NestJS com TypeScript strict, PostgreSQL + Prisma e 26 endpoints documentados no Swagger
+- Triagem assíncrona: o chamado é criado em ~10 ms e um worker (BullMQ + Redis) chama o Claude com timeout, retry e validação Zod
+- SLA por prioridade com job agendado, máquina de status auditada e métricas de acerto da IA
+- 157 testes (Jest + Testcontainers com PostgreSQL e Redis reais), 97% de cobertura nas regras de negócio
 
 ### Contato
 
